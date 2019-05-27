@@ -1,0 +1,27 @@
+{% extends "pages/base.html.twig" %}
+{% block title 'Evénements' %}
+{% block body %}
+<div class="container text-center">
+<h1 class="section-heading text-center">Liste des événements  !</h1>
+</div>
+<table class="table table-striped">
+    <tr>
+        <td>Id</td>
+        <td>Titre</td>
+        <td>Categorie</td>
+        <td>Date</td>
+    </tr>
+    
+    {% for event in evenements%}
+    <tr>  
+        <td>{{event.id}}</td>
+        <td><a href="{{ path('showEvenement', {id: event.id, slug: event.slug}) }}">{{event.title}}</a></td>
+        <td>{{event.category}}</td>
+        <td>{{event.date|date('d/m/Y')}}</td>
+    </tr>
+    {% endfor %}
+    
+</table>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -1,0 +1,17 @@
+
+
+<div class="card mb-4">
+    {% if event.picture %}
+        <img src= "{{ vich_uploader_asset(event.picture, 'imageFile') | imagine_filter('thumb') }}" alt="" style="width: 50%; height: auto;">
+    {% else %}
+        <img src= "{{ '/images/evenements/event.jpg' | imagine_filter('thumb') }}" alt="" style="width: 50%; height: auto;"> 
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path('showEvenement', {id: event.id, slug: event.slug}) }}">{{event.title}}</a>
+        </h5>
+        <!-- <p class="card-text">{{event.id}}</p> -->
+        <div>{{event.category}} {{event.date|date('d/m/Y')}}</div>
+    </div>
+</div>
+      

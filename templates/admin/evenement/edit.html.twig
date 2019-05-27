@@ -1,0 +1,10 @@
+{% extends "pages/base.html.twig" %}
+{% block title 'Edition de l\'événement' %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h1>Modifier l'événement</h1>
+        {{ include ('admin/evenement/_form.html.twig',{form: form, button: 'Valider'}) }}
+    </div>
+{% endblock %}

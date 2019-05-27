@@ -1,0 +1,36 @@
+
+{{form_start(form)}}
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4">{{ form_row(form.id) }}</div>
+            <div class="col-md-4">{{ form_row(form.title) }}</div>
+            <div class="col-md-4">{{ form_row(form.category) }}</div>
+            <div class="col-md-4">{{ form_row(form.date) }}</div>
+            <div class="col-md-8">{{ form_row(form.pictureFiles) }}</div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-12">{{ form_row(form.adresse) }}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row flex justify-content-start flex-wrap">
+            {% for picture in evenement.pictures %}
+                <div class="col" style="width : 100px; flex: none; margin: 5px;">
+                    <img src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('thumb') }}" width="100" alt="">
+                    <a href="{{ path('admin.picture.delete', {id: picture.id}) }}" class="btn-danger" data-delete
+                     data-token="{{ csrf_token('delete'~picture.id) }}">Spprimer</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">{{ form_row(form.description) }}</div>
+</div>
+
+{{ form_widget(form)}}
+    <button class="btn btn-primary">{{ button|default('Enregistrer')}}</button>
+{{ form_end(form)}}
+

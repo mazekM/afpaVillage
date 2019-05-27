@@ -1,0 +1,55 @@
+{% extends "pages/base.html.twig" %}
+{% block title 'Evénements' %}
+{% block body %}
+<div class="jumbotron">
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="form-row align-items-end">
+            <div class="col">
+                {{ form_row(form.minId)}}
+            </div>
+            <div class="col">
+                {{ form_row(form.maxId)}}
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="text" value="" placeholder="Adresse" id="search_address" class="form-control"/>
+                </div>
+        
+            </div>
+            <div class="col">
+                {{ form_row(form.distance)}}
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+</div>
+<div class="container text-center">
+<h1 class="section-heading text-center">Fêtes et événements  !</h1>
+</div>
+<div>
+<div class="container mt-4">
+    <h4>Venez faire la fête ou participer à un événement local et invitez qui vous voulez</h4>
+    
+    <div class="row">
+            {% for event in evenements %}
+            <div class="col-md-4">
+                {% include 'pages/_evenement.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        {{ knp_pagination_render(evenements) }}
+    </div>
+
+</div>
+    
+{% endblock %}
+
+{% block javascript %}{% endblock %}

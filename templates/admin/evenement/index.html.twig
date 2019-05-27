@@ -1,0 +1,55 @@
+{% extends "pages/base.html.twig" %}
+
+{% block title 'Gestion des événements' %}
+
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container text-center">
+            <h1>Gestionnaire des événements  !</h1>
+    </div>
+     
+    <div class="text-left">
+            <a href="{{ path('admin.evenement.new') }}" class="btn btn-success">Ajouter un évènement</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+                <td>Id</td>
+                <td>Titre</td>
+                <td>Categorie</td>
+                <td>Date</td>
+                
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in evenements %}
+        <tr>
+                <td>{{event.id}}</td>
+                <td><a href="{{path('showEvenement',{id: event.id, slug: event.slug} ) }}">{{event.title}}</a></td>
+                <td>{{event.category}}</td>
+                <td>{{event.date|date('d/m/Y')}}</td>
+                
+            <td>
+                <a href="{{path('admin.evenement.edit',{id: event.id})}}" class="btn btn-primary">Modifier</a>
+                <form method="post" action="{{ path('admin.evenement.delete', {id: event.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer cet évènement ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete'~event.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   
+{% endblock %}
+
+{% block javascript %}{% endblock %}
