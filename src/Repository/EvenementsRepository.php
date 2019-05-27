@@ -51,6 +51,19 @@ class EvenementsRepository extends ServiceEntityRepository
                 ->andwhere('e.id >= :minid')
                 ->setParameter('minid', $search->getMinId());
         }
+
+        if($search->getLat() && $search->getLng() && $search->getDistance()) {
+            $query = $query
+                ->select('e')
+                ->andWhere('(6353 * 2 * ASIN(SQRT( POWER(SIN((e.lat - :lat) *  pi()/180 / 2), 2) + COS(e.lat *
+                pi()/180) * COS(:lat * pi()/180) * POWER(SIN((e.lng - :lng) * pi()/180 / 2), 2) ))) <= :distance')
+                ->setParameter('lng', $search->getLng())
+                ->setParameter('lat', $search->getLat())
+                ->setParameter('distance', $search->getDistance());
+
+
+        }
+
         return $query->getQuery();
            
     }
